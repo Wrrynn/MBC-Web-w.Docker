@@ -3,25 +3,34 @@ version: '3.8'
 services:
   redis:
     image: redis:latest
-    container_name: redis-server-mbc-web
-    command: redis-server --requirepass Admin123 --appendonly yes
+    command: >
+      sh -c "redis-server --requirepass $$(cat /run/secrets/redis_password) --appendonly yes"
+    secrets:
+      - redis_password
     volumes:
       - redis_data:/data
     ports:
       - "6379:6379"
 
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: mbc-web-app
+    image: mbc-web-app:1.0.1
     ports:
       - "4000:4000"
     depends_on:
       - redis
-    environment:
-      - REDIS_URL=redis://default:Admin123@redis:6379
-    command: npm start
+    secrets:
+      - redis_password
+    command: >
+      sh -c "REDIS_PASSWORD=$$(cat /run/secrets/redis_password) &&
+             REDIS_URL=redis://default:$$REDIS_PASSWORD@redis:6379 npm start"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
 
 volumes:
   redis_data:
+
+secrets:
+  redis_password:
+    external: true
