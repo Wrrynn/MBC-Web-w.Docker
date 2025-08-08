@@ -2,11 +2,10 @@
 
 Ini adalah proyek lanjutan dari website mbc lab yang berisi integrasi  web sederhana dengan backend redis.
 Dalam proyek ini menggunakan Docker yang terdiri dari; 
-
+```
 ├── Docker Compose 
-
 └── Docker Swarm
-
+```
 Redis yang digunakan sebagai penyimpanan cache/bertipe persistent data.
 
 ---
@@ -88,11 +87,11 @@ MBC-Web-w-Docker/
 7. **Membuat Redis Compose**
    
    File redis compose terdiri dari services yang berisi 
-   
+   ```
    ├── redis
    ├── web
    └── deploy
-
+   ```
    serta volumes dan secret yang terhubung ke secret-pass.txt
 
    comamnd yang dilakukan pada cmd adalah 
@@ -105,11 +104,12 @@ MBC-Web-w-Docker/
    ```
 
 8. **Membuat Redis Swarm**
+   
    Redis swarm dapat dibuat dengan menginisialisasi
    ```
       docker swarm init 
    ```
-   Deploy stack untuk menjalakan
+   Deploy stack untuk menjalakan swarm
    ```
       docker stack deploy -c docker-compose.yml mbc_stack
    ```
