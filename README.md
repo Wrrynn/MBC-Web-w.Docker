@@ -2,8 +2,11 @@
 
 Ini adalah proyek lanjutan dari website mbc lab yang berisi integrasi  web sederhana dengan backend redis.
 Dalam proyek ini menggunakan Docker yang terdiri dari; 
+
 ├── Docker Compose 
+
 └── Docker Swarm
+
 Redis yang digunakan sebagai penyimpanan cache/bertipe persistent data.
 
 ---
@@ -27,9 +30,11 @@ MBC-Web-w-Docker/
 ## Tahapan
 
 1. **Membuat Docker File**
+   
    Dockerfile adalah file konfigurasi teks sederhana berisi instruksi yang memberitahu Docker bagaimana cara membangun image dari aplikasi kita.
 
 2. **Membuat Docker ignore**
+   
    Agar file yang tidak perlu tidak dikopi ke container:
    contohnya:
    ```
@@ -38,19 +43,21 @@ MBC-Web-w-Docker/
    ```
 
 3. **Menambahkan Redis**
+   
    Redis dapat dibuat melalui cmd, agar redis bersifat persistent tambahkan appendonly dan tambahkan requirepass
 
-```bash
-docker run -d --name redis-server-mbc-web 
-  -p 6379:6379 
-  -v redis_data:/data 
-  redis redis-server 
-  --requirepass Admin123
-  --dir /data 
-  --appendonly yes
-```
+   ```bash
+      docker run -d --name redis-server-mbc-web 
+      -p 6379:6379 
+      -v redis_data:/data 
+      redis redis-server 
+      --requirepass Admin123
+      --dir /data 
+      --appendonly yes
+   ```
 
 4. **Hubungkan Redis dengan proyek**
+   
    Redis dapat dihubungkan dengan proyek melalui folder lib/redis.js, 
    gunakan url 'redis://default:[pass]@redis:[port]'
    dan process.env.REDIS_URL untuk mengambil enviroment dari handler
@@ -60,6 +67,7 @@ docker run -d --name redis-server-mbc-web
    ```
 
 5. **Handler Post**
+   
    Perbaiki handler post pada app/api/contact/route.js agar dapat terhubung dengan redis
 
    ```bash
@@ -71,16 +79,21 @@ docker run -d --name redis-server-mbc-web
    ```
 
 6. **Menambahkan Redis Secret**
+   
    Mengisi file secret-pass.txt dengan password redis
    ```
       Admin123
    ```
 
 7. **Membuat Redis Compose**
+   
    File redis compose terdiri dari services yang berisi 
    ├── redis
+
    ├── web
+
    └── deploy
+
    serta volumes dan secret yang terhubung ke secret-pass.txt
 
    comamnd yang dilakukan pada cmd adalah 
@@ -122,7 +135,7 @@ docker run -d --name redis-server-mbc-web
       
       # untuk melihat password redis 
       docker exec -it (docker ps -qf "name=mbc_stack_redis") sh
-      #kemuadian  gunakan cat 
+      #kemudian  gunakan cat 
       cat /run/secrets/redis_password
    ```
 
