@@ -33,4 +33,4 @@ volumes:
 
 secrets:
   redis_password:
-    external: true
+    file: ./secret-pass.txt
