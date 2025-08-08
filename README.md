@@ -117,13 +117,14 @@ MBC-Web-w-Docker/
    ```bash
       docker stack ls                  # Melihat stack yang aktif
       docker stack services mbc_stack  # Melihat service dalam stack
-      docker stack service [id]=0      # Menonaktifkan container sementara
-      docker stack service [id]=[n]    # Mengaktifkan container sebanyak jumlah yang diinginkan
+      docker service scale [id]=0      # Menonaktifkan container sementara
+      docker service scale [id]=[n]    # Mengaktifkan container sebanyak jumlah yang diinginkan
       docker stack rm [nama_stack]     # Menghapus stack
    ```
    
 ## Catatan Penting
    ```bash
+      docker info                         # Melihat info pada docker
       docker ps                           # Melihat container yang aktif
       docker excec -it [names] redis-cli  # Masuk ke redis
       #jika masuk ke redis masukkan password redis kemudian dapat mengakses isi redis dengan 
