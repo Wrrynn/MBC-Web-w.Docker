@@ -88,10 +88,9 @@ MBC-Web-w-Docker/
 7. **Membuat Redis Compose**
    
    File redis compose terdiri dari services yang berisi 
+   
    ├── redis
-
    ├── web
-
    └── deploy
 
    serta volumes dan secret yang terhubung ke secret-pass.txt
